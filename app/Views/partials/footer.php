@@ -1,7 +1,6 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
+    Versión <span>2.0.0</span> - Todos los derechos reservados
     <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 3.1.0
+        Desarrollado con <span class="mr-1">❤️</span> para el equipo Figment
     </div>
 </footer>
