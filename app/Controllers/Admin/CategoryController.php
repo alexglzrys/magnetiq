@@ -13,4 +13,50 @@ class CategoryController extends BaseController
         $categories = $categoryModel->findAll();
         return view('pages/admin/categories/index', compact('categories'));
     }
+
+    public function edit($id)
+    {
+        $categoryModel = new CategoryModel();
+        $category = $categoryModel->find($id);
+        return view('pages/admin/categories/edit', compact('category'));
+    }
+
+    public function update($id)
+    {
+        $response = [];
+        try {
+            $categoryModel = new CategoryModel();
+
+            $name = $this->request->getPost('name');
+            $color = $this->request->getPost('color');
+            $background = $this->request->getPost('background');
+
+            $data = [
+                'name' => $name,
+                'slug' => mb_url_title($name, '-', TRUE),
+                'color' => $color,
+                'background' => $background
+            ];
+
+            $categoryUpdated = $categoryModel->update($id, $data);
+
+            if ($categoryUpdated) {
+                $response["status"]     = "success";
+                $response["code"]       = 200;
+                $response["message"]    = "La categoría se actualizó satisfactoriamente en el sistema.";
+            } else {
+                $response["status"]     = "error";
+                $response["code"]       = 500;
+                $response["message"]    = "No fue posible actualizar la categoría en el sistema, favor de intentar mas tarde.";
+            }
+
+            return $this->response->setJSON($response);
+        } catch (\Exception $e) {
+            $response["status"]  = "error";
+            $response["code"]    = 500;
+            $response["message"] = $e->getMessage();
+            return $this->response->setJSON($response);
+        }
+
+    }
 }

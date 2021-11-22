@@ -47,7 +47,7 @@
                                     <td><span class="p-1" style="background: <?= $category->background ?>; color: <?= $category->color ?>"><?= $category->name ?></span></td>
                                     <td><?= $category->created_at ?></td>
                                     <td>
-                                        <a href="" class="btn btn-sm btn-warning">Editar</a>
+                                        <a href="<?= route_to('admin.categories.edit', $category->id) ?>" class="btn btn-sm btn-warning">Editar</a>
                                         <a href="" class="btn btn-sm btn-danger">Eliminar</a>
                                     </td>
                                 </tr>
