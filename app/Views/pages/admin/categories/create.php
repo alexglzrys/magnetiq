@@ -1,14 +1,14 @@
 <?= $this->extend('layouts/main') ?>
 
-<?= $this->section('page_title') ?>Editar Categoría<?= $this->endSection() ?>
+<?= $this->section('page_title') ?>Registrar Categoría<?= $this->endSection() ?>
 
 <?= $this->section('header') ?>
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Editar Categoría</h1>
-                <p>Esta sección le permite editar una categoría registrada previamente en el sistema</p>
+                <h1 class="m-0">Registrar Categoría</h1>
+                <p>Esta sección le permite registrar una categoría en el sistema</p>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -28,26 +28,26 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Editar Categoría</h3>
+                        <h3 class="card-title">Registrar Categoría</h3>
                     </div>
-                    <form role="form" id="formEditCategory">
+                    <form role="form" id="formCreateCategory">
                         <div class="card-body">
 
                             <div class="form-group">
                                 <label for="name">Nombre</label>
-                                <input type="text" name="name" id="name" class="form-control" value="<?= $category->name ?>" placeholder="Nombre de la categoría">
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Nombre de la categoría">
                             </div>
                             <div class="form-group">
                                 <label for="color">Color de Texto</label>
-                                <input type="text" name="color" id="color" class="form-control" value="<?= $category->color ?>" placeholder="Color del texto de etiqueta">
+                                <input type="text" name="color" id="color" class="form-control" placeholder="Color del texto de etiqueta">
                             </div>
                             <div class="form-group">
                                 <label for="background">Color de Fondo</label>
-                                <input type="text" name="background" id="background" class="form-control" value="<?= $category->background ?>" placeholder="Color de fondo de etiqueta">
+                                <input type="text" name="background" id="background" class="form-control" placeholder="Color de fondo de etiqueta">
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                            <button type="submit" class="btn btn-primary">Registrar</button>
                         </div>
                     </form>
                 </div>
@@ -63,7 +63,6 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
-<script>const ID = '<?= $category->id ?>'</script>
-<script src="<?= base_url('public/js/admin/categories/edit.js') ?>"></script>
+<script src="<?= base_url('public/js/admin/categories/create.js') ?>"></script>
 <?= $this->endSection() ?>
 

@@ -27,8 +27,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Categorías publicadas</h3>
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="card-title mr-4">Categorías publicadas</h3>
+                        <a href="<?= route_to('admin.categories.create') ?>" class="btn btn-success">Registrar categoría</a>
                     </div>
                     <div class="card-body">
                         <table id="categories-table" class="table table-bordered table-striped">
