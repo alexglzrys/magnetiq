@@ -8,11 +8,24 @@ function deleteCategory(event) {
     event.preventDefault()
     event.stopPropagation()
 
+    const ID = this.dataset.id
+
     fetchData(`${BASE_URL}/admin/categories/destroy/${ID}`, null).then(res => {
-        console.log(res)
-        document.getElementById(`category-${ID}`).remove()
+        switch (res.code) {
+            case 200:
+                Swal.fire("Proceso terminado", res.message, "success");
+                document.getElementById(`category-${ID}`).remove()
+                break;
+            case 400:
+                Swal.fire("Lo sentimos", res.message, "error");
+                break;
+            case 500:
+                Swal.fire("Error", res.message, "error");
+                break;
+        }
     }).catch(err => {
         console.log(err)
+        Swal.fire("Error", err.message, "error");
     }).finally(() => {
 
     })

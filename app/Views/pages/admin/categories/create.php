@@ -60,10 +60,13 @@
 
 
 <?= $this->section('styles') ?>
-
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="<?= base_url('public/libs/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>">
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
+<!-- SweetAlert2 -->
+<script src="<?= base_url('public/libs/adminLTE/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
 <script src="<?= base_url('public/js/admin/categories/create.js') ?>"></script>
 <?= $this->endSection() ?>
 

@@ -36,7 +36,7 @@ class CategoryController extends BaseController
                 ],
                 'color' => [
                     'label' => 'Color de texto',
-                    'rules' => 'required|min_length[3]|max_length[80]',
+                    'rules' => 'required|min_length[7]|max_length[7]',
                     'errors' => [
                         'required' => 'El {field} es un dato requerido',
                         'min_length' => 'El {field} debe tener al menos {param} caracteres',
@@ -45,7 +45,7 @@ class CategoryController extends BaseController
                 ],
                 'background' => [
                     'label' => 'Color de fondo',
-                    'rules' => 'required|min_length[20]|max_length[1000]',
+                    'rules' => 'required|min_length[7]|max_length[7]',
                     'errors' => [
                         'required' => 'El {field} es un dato requerido',
                         'min_length' => 'El {field} debe tener al menos {param} caracteres',

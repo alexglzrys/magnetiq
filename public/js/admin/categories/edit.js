@@ -16,11 +16,13 @@ function editCategory(event) {
         removeValidationMessages()
         switch (res.code) {
             case 200:
-
+                Swal.fire("Proceso terminado", res.message, "success");
                 break;
             case 400:
+                Swal.fire("Lo sentimos", res.message, "error");
                 break;
             case 406:
+                Swal.fire("Error de validación", res.message, "error");
                 for (const property in res.validation) {
                     const HTML = `<span class="message-error"><i class="fa fa-exclamation-circle"></i> ${res.validation[property]}</span>`
                     const formControl = document.querySelector(`*[name='${property}']`)
@@ -29,9 +31,13 @@ function editCategory(event) {
                     formControl.parentNode.insertAdjacentHTML('beforeend', HTML)
                 }
                 break;
+            case 500:
+                Swal.fire("Error", res.message, "error");
+                break;
         }
     }).catch(err => {
         console.log(err)
+        Swal.fire("Error", err.message, "error");
     }).finally(() => {
 
     })

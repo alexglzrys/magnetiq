@@ -49,7 +49,7 @@
                                     <td><?= $category->created_at ?></td>
                                     <td>
                                         <a href="<?= route_to('admin.categories.edit', $category->id) ?>" class="btn btn-sm btn-warning">Editar</a>
-                                        <a href="<?= route_to('admin.categories.destroy', $category->id) ?>" class="btn btn-sm btn-danger btnDeleteCategory">Eliminar</a>
+                                        <a href="<?= route_to('admin.categories.destroy', $category->id) ?>" class="btn btn-sm btn-danger btnDeleteCategory" data-id="<?= $category->id ?>">Eliminar</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -67,14 +67,16 @@
 <?= $this->section('styles') ?>
 <!-- DataTables -->
 <link rel="stylesheet" href="<?= base_url('public/libs/adminLTE/plugins/datatables-bs4/css/dataTables.bootstrap4.css') ?>">
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="<?= base_url('public/libs/adminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>">
 <?= $this->endSection() ?>
 
 <?= $this->section('scripts') ?>
 <!-- DataTables -->
 <script src="<?= base_url('public/libs/adminLTE/plugins/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?= base_url('public/libs/adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
-
-<script>const ID = '<?= $category->id ?>'</script>
+<!-- SweetAlert2 -->
+<script src="<?= base_url('public/libs/adminLTE/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
 <script src="<?= base_url('public/js/admin/categories/delete.js') ?>"></script>
 <script>
     $(function () {
