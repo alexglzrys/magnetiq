@@ -31,7 +31,7 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'AdminController::index');
+$routes->get('/', 'AdminController::index', ['as' => 'admin.dashboard']);
 
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
     $routes->get('categories', 'CategoryController::index', ['as' => 'admin.categories.index']);
