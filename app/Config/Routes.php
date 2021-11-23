@@ -43,6 +43,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->post('categories/destroy/(:num)', 'CategoryController::destroy/$1', ['as' => 'admin.categories.destroy']);
     // Tags
     $routes->get('tags', 'TagController::index', ['as' => 'admin.tags.index']);
+    $routes->get('tags/create', 'TagController::create', ['as' => 'admin.tags.create']);
+    $routes->post('tags/store', 'TagController::store', ['as' => 'admin.tags.store']);
 });
 
 /*
