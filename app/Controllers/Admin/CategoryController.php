@@ -23,11 +23,52 @@ class CategoryController extends BaseController
     {
         $response = [];
         try {
+            // Validación de datos
+            $rules = [
+                'name' => [
+                    'label' => 'Nombre de categoría',
+                    'rules' => 'required|min_length[3]|max_length[30]',
+                    'errors' => [
+                        'required' => 'El {field} es un dato requerido',
+                        'min_length' => 'El {field} debe tener al menos {param} caracteres',
+                        'max_length' => 'El {field} no debe exceder los {param} caracteres'
+                    ]
+                ],
+                'color' => [
+                    'label' => 'Color de texto',
+                    'rules' => 'required|min_length[3]|max_length[80]',
+                    'errors' => [
+                        'required' => 'El {field} es un dato requerido',
+                        'min_length' => 'El {field} debe tener al menos {param} caracteres',
+                        'max_length' => 'El {field} no debe exceder los {param} caracteres'
+                    ]
+                ],
+                'background' => [
+                    'label' => 'Color de fondo',
+                    'rules' => 'required|min_length[20]|max_length[1000]',
+                    'errors' => [
+                        'required' => 'El {field} es un dato requerido',
+                        'min_length' => 'El {field} debe tener al menos {param} caracteres',
+                        'max_length' => 'El {field} no debe exceder los {param} caracteres'
+                    ]
+                ],
+            ];
+
+            $input = $this->validate($rules);
+
+            if (!$input) {
+                $response["status"]     = "invalid";
+                $response["code"]       = 406;
+                $response["message"]    = "Estimado usuario, los datos ingresados son incorrectos, verifiquelos nuevamente.";
+                $response['validation'] = $this->validator->getErrors();
+                return $this->response->setJSON($response);
+            }
+
             $categoryModel = new CategoryModel();
 
-            $name = $this->request->getPost('name');
-            $color = $this->request->getPost('color');
-            $background = $this->request->getPost('background');
+            $name = trim($this->request->getPost('name'));
+            $color = trim($this->request->getPost('color'));
+            $background = trim($this->request->getPost('background'));
 
             $data = [
                 'name' => $name,
@@ -68,11 +109,52 @@ class CategoryController extends BaseController
     {
         $response = [];
         try {
+            // Validación de datos
+            $rules = [
+                'name' => [
+                    'label' => 'Nombre de categoría',
+                    'rules' => 'required|min_length[3]|max_length[30]',
+                    'errors' => [
+                        'required' => 'El {field} es un dato requerido',
+                        'min_length' => 'El {field} debe tener al menos {param} caracteres',
+                        'max_length' => 'El {field} no debe exceder los {param} caracteres'
+                    ]
+                ],
+                'color' => [
+                    'label' => 'Color de texto',
+                    'rules' => 'required|min_length[7]|max_length[7]',
+                    'errors' => [
+                        'required' => 'El {field} es un dato requerido',
+                        'min_length' => 'El {field} debe tener al menos {param} caracteres',
+                        'max_length' => 'El {field} no debe exceder los {param} caracteres'
+                    ]
+                ],
+                'background' => [
+                    'label' => 'Color de fondo',
+                    'rules' => 'required|min_length[7]|max_length[7]',
+                    'errors' => [
+                        'required' => 'El {field} es un dato requerido',
+                        'min_length' => 'El {field} debe tener al menos {param} caracteres',
+                        'max_length' => 'El {field} no debe exceder los {param} caracteres'
+                    ]
+                ],
+            ];
+
+            $input = $this->validate($rules);
+
+            if (!$input) {
+                $response["status"]     = "invalid";
+                $response["code"]       = 406;
+                $response["message"]    = "Estimado usuario, los datos ingresados son incorrectos, verifiquelos nuevamente.";
+                $response['validation'] = $this->validator->getErrors();
+                return $this->response->setJSON($response);
+            }
+
             $categoryModel = new CategoryModel();
 
-            $name = $this->request->getPost('name');
-            $color = $this->request->getPost('color');
-            $background = $this->request->getPost('background');
+            $name = trim($this->request->getPost('name'));
+            $color = trim($this->request->getPost('color'));
+            $background = trim($this->request->getPost('background'));
 
             $data = [
                 'name' => $name,
@@ -125,5 +207,10 @@ class CategoryController extends BaseController
             $response["message"] = $e->getMessage();
             return $this->response->setJSON($response);
         }
+    }
+
+    private function validateInfo($rules)
+    {
+
     }
 }

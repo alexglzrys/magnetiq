@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('public/libs/adminLTE/css/adminlte.min.css') ?>">
+
+    <link rel="stylesheet" href="<?= base_url('public/css/app.css') ?>">
     <?= $this->renderSection('styles') ?>
 </head>
 <!--
