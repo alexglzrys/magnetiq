@@ -34,12 +34,15 @@ $routes->setAutoRoute(false);
 $routes->get('/', 'AdminController::index', ['as' => 'admin.dashboard']);
 
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+    // Categories
     $routes->get('categories', 'CategoryController::index', ['as' => 'admin.categories.index']);
     $routes->get('categories/create', 'CategoryController::create', ['as' => 'admin.categories.create']);
     $routes->post('categories/store', 'CategoryController::store', ['as' => 'admin.categories.store']);
     $routes->get('categories/edit/(:num)', 'CategoryController::edit/$1', ['as' => 'admin.categories.edit']);
     $routes->post('categories/update/(:num)', 'CategoryController::update/$1', ['as' => 'admin.categories.update']);
     $routes->post('categories/destroy/(:num)', 'CategoryController::destroy/$1', ['as' => 'admin.categories.destroy']);
+    // Tags
+    $routes->get('tags', 'TagController::index', ['as' => 'admin.tags.index']);
 });
 
 /*
