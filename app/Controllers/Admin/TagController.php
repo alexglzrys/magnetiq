@@ -182,6 +182,29 @@ class TagController extends BaseController
             $response["message"] = $e->getMessage();
             return $this->response->setJSON($response);
         }
+    }
 
+    public function destroy($id)
+    {
+        $response = [];
+        try {
+            $tagModel = new TagModel();
+            $tagDeleted = $tagModel->delete($id);
+            if ($tagDeleted) {
+                $response["status"]     = "success";
+                $response["code"]       = 200;
+                $response["message"]    = "La etiqueta se eliminó satisfactoriamente en el sistema.";
+            } else {
+                $response["status"]     = "error";
+                $response["code"]       = 500;
+                $response["message"]    = "No fue posible eliminar la etiqueta en el sistema, favor de intentar mas tarde.";
+            }
+            return $this->response->setJSON($response);
+        } catch (\Exception $e) {
+            $response["status"]  = "error";
+            $response["code"]    = 500;
+            $response["message"] = $e->getMessage();
+            return $this->response->setJSON($response);
+        }
     }
 }

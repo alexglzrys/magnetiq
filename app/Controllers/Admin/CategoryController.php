@@ -208,9 +208,4 @@ class CategoryController extends BaseController
             return $this->response->setJSON($response);
         }
     }
-
-    private function validateInfo($rules)
-    {
-
-    }
 }
