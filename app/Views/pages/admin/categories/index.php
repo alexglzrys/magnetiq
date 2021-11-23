@@ -43,13 +43,13 @@
                             </thead>
                             <tbody>
                             <?php foreach ($categories as $category): ?>
-                                <tr>
+                                <tr id="category-<?= $category->id ?>">
                                     <td><?= $category->name ?></td>
                                     <td><span class="p-1" style="background: <?= $category->background ?>; color: <?= $category->color ?>"><?= $category->name ?></span></td>
                                     <td><?= $category->created_at ?></td>
                                     <td>
                                         <a href="<?= route_to('admin.categories.edit', $category->id) ?>" class="btn btn-sm btn-warning">Editar</a>
-                                        <a href="" class="btn btn-sm btn-danger">Eliminar</a>
+                                        <a href="<?= route_to('admin.categories.destroy', $category->id) ?>" class="btn btn-sm btn-danger btnDeleteCategory">Eliminar</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -73,6 +73,9 @@
 <!-- DataTables -->
 <script src="<?= base_url('public/libs/adminLTE/plugins/datatables/jquery.dataTables.js') ?>"></script>
 <script src="<?= base_url('public/libs/adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
+
+<script>const ID = '<?= $category->id ?>'</script>
+<script src="<?= base_url('public/js/admin/categories/delete.js') ?>"></script>
 <script>
     $(function () {
         $('#categories-table').DataTable();

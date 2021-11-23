@@ -103,5 +103,27 @@ class CategoryController extends BaseController
 
     }
 
-
+    public function destroy($id)
+    {
+        $response = [];
+        try {
+            $categoryModel = new CategoryModel();
+            $categoryDeleted = $categoryModel->delete($id);
+            if ($categoryDeleted) {
+                $response["status"]     = "success";
+                $response["code"]       = 200;
+                $response["message"]    = "La categoría se eliminó satisfactoriamente en el sistema.";
+            } else {
+                $response["status"]     = "error";
+                $response["code"]       = 500;
+                $response["message"]    = "No fue posible eliminar la categoría en el sistema, favor de intentar mas tarde.";
+            }
+            return $this->response->setJSON($response);
+        } catch (\Exception $e) {
+            $response["status"]  = "error";
+            $response["code"]    = 500;
+            $response["message"] = $e->getMessage();
+            return $this->response->setJSON($response);
+        }
+    }
 }

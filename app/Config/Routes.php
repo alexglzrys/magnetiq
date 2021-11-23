@@ -39,6 +39,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->post('categories/store', 'CategoryController::store', ['as' => 'admin.categories.store']);
     $routes->get('categories/edit/(:num)', 'CategoryController::edit/$1', ['as' => 'admin.categories.edit']);
     $routes->post('categories/update/(:num)', 'CategoryController::update/$1', ['as' => 'admin.categories.update']);
+    $routes->post('categories/destroy/(:num)', 'CategoryController::destroy/$1', ['as' => 'admin.categories.destroy']);
 });
 
 /*
