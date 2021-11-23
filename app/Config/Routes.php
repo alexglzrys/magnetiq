@@ -45,6 +45,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->get('tags', 'TagController::index', ['as' => 'admin.tags.index']);
     $routes->get('tags/create', 'TagController::create', ['as' => 'admin.tags.create']);
     $routes->post('tags/store', 'TagController::store', ['as' => 'admin.tags.store']);
+    $routes->get('tags/edit/(:num)', 'TagController::edit/$1', ['as' => 'admin.tags.edit']);
+    $routes->post('tags/update/(:num)', 'TagController::update/$1', ['as' => 'admin.tags.update']);
 });
 
 /*
