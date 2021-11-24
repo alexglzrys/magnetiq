@@ -54,6 +54,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->post('community-managers/store', 'CommunityController::store', ['as' => 'admin.community.store']);
     $routes->get('community-managers/edit/(:num)', 'CommunityController::edit/$1', ['as' => 'admin.community.edit']);
     $routes->post('community-managers/update/(:num)', 'CommunityController::update/$1', ['as' => 'admin.community.update']);
+    $routes->post('community-managers/destroy/(:num)', 'CommunityController::destroy/$1', ['as' => 'admin.community.destroy']);
 });
 
 /*

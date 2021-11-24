@@ -32,7 +32,7 @@
                         <a href="<?= route_to('admin.community.create') ?>" class="btn btn-success">Registrar Community Manager</a>
                     </div>
                     <div class="card-body">
-                        <table id="communities-table" class="table table-bordered table-striped">
+                        <table id="community-managers-table" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -43,13 +43,13 @@
                             </thead>
                             <tbody>
                             <?php foreach ($communities as $community): ?>
-                                <tr id="tag-<?= $community->id ?>">
+                                <tr id="community-manager-<?= $community->id ?>">
                                     <td><?= $community->first_name . ' ' . $community->last_name ?></td>
                                     <td><?= $community->email ?></td>
                                     <td><?= $community->created_at ?></td>
                                     <td>
                                         <a href="<?= route_to('admin.community.edit', $community->id) ?>" class="btn btn-sm btn-warning">Editar</a>
-                                        <a href="<?= route_to('admin.community.destroy', $community->id) ?>" class="btn btn-sm btn-danger btnDeleteCommunity" data-id="<?= $community->id ?>">Eliminar</a>
+                                        <a href="<?= route_to('admin.community.destroy', $community->id) ?>" class="btn btn-sm btn-danger btnDeleteCommunityManager" data-id="<?= $community->id ?>">Eliminar</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

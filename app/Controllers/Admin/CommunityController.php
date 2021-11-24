@@ -10,7 +10,7 @@ class CommunityController extends BaseController
     public function index()
     {
         $communityModel = new CommunityModel();
-        $communities = $communityModel->where('role_id =', 2)->get()->getResult();
+        $communities = $communityModel->where('role_id =', 2)->where('deleted_at IS NULL')->get()->getResult();
         return view('pages/admin/community-managers/index', compact('communities'));
     }
 
@@ -227,6 +227,30 @@ class CommunityController extends BaseController
                 $response["message"]    = "No fue posible actualizar el Community Manager en el sistema, favor de intentar mas tarde.";
             }
 
+            return $this->response->setJSON($response);
+        } catch (\Exception $e) {
+            $response["status"]  = "error";
+            $response["code"]    = 500;
+            $response["message"] = $e->getMessage();
+            return $this->response->setJSON($response);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $response = [];
+        try {
+            $communityModel = new CommunityModel();
+            $communityDeleted = $communityModel->delete($id);
+            if ($communityDeleted) {
+                $response["status"]     = "success";
+                $response["code"]       = 200;
+                $response["message"]    = "El Community Manager se eliminó satisfactoriamente en el sistema.";
+            } else {
+                $response["status"]     = "error";
+                $response["code"]       = 500;
+                $response["message"]    = "No fue posible eliminar el Community Manager en el sistema, favor de intentar mas tarde.";
+            }
             return $this->response->setJSON($response);
         } catch (\Exception $e) {
             $response["status"]  = "error";
