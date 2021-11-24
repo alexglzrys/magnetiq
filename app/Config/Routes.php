@@ -48,10 +48,12 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->get('tags/edit/(:num)', 'TagController::edit/$1', ['as' => 'admin.tags.edit']);
     $routes->post('tags/update/(:num)', 'TagController::update/$1', ['as' => 'admin.tags.update']);
     $routes->post('tags/destroy/(:num)', 'TagController::destroy/$1', ['as' => 'admin.tags.destroy']);
-    // Community
+    // Community Managers
     $routes->get('community-managers', 'CommunityController::index', ['as' => 'admin.community.index']);
     $routes->get('community-managers/create', 'CommunityController::create', ['as' => 'admin.community.create']);
     $routes->post('community-managers/store', 'CommunityController::store', ['as' => 'admin.community.store']);
+    $routes->get('community-managers/edit/(:num)', 'CommunityController::edit/$1', ['as' => 'admin.community.edit']);
+    $routes->post('community-managers/update/(:num)', 'CommunityController::update/$1', ['as' => 'admin.community.update']);
 });
 
 /*

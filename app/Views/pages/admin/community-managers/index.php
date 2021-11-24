@@ -48,8 +48,8 @@
                                     <td><?= $community->email ?></td>
                                     <td><?= $community->created_at ?></td>
                                     <td>
-                                        <a href="<?= route_to('admin.tags.edit', $community->id) ?>" class="btn btn-sm btn-warning">Editar</a>
-                                        <a href="<?= route_to('admin.tags.destroy', $community->id) ?>" class="btn btn-sm btn-danger btnDeleteCommunity" data-id="<?= $community->id ?>">Eliminar</a>
+                                        <a href="<?= route_to('admin.community.edit', $community->id) ?>" class="btn btn-sm btn-warning">Editar</a>
+                                        <a href="<?= route_to('admin.community.destroy', $community->id) ?>" class="btn btn-sm btn-danger btnDeleteCommunity" data-id="<?= $community->id ?>">Eliminar</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -77,10 +77,10 @@
 <script src="<?= base_url('public/libs/adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
 <!-- SweetAlert2 -->
 <script src="<?= base_url('public/libs/adminLTE/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
-<script src="<?= base_url('public/js/admin/communities/delete.js') ?>"></script>
+<script src="<?= base_url('public/js/admin/community-managers/delete.js') ?>"></script>
 <script>
     $(function () {
-        $('#communities-table').DataTable();
+        $('#community-managers-table').DataTable();
     });
 </script>
 
