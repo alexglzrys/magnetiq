@@ -1,19 +1,19 @@
 <?= $this->extend('layouts/main') ?>
 
-<?= $this->section('page_title') ?>Categorías<?= $this->endSection() ?>
+<?= $this->section('page_title') ?>Community Managers<?= $this->endSection() ?>
 
 <?= $this->section('header') ?>
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Categorías</h1>
-                <p>Esta sección le permite gestionar las categorías registradas en el sistema</p>
+                <h1 class="m-0">Community Managers</h1>
+                <p>Esta sección le permite gestionar los Community Managers registrados en el sistema</p>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="<?= route_to('admin.dashboard') ?>">Panel de Control</a></li>
-                    <li class="breadcrumb-item active">Categorías</li>
+                    <li class="breadcrumb-item active">Community Managers</li>
                 </ol>
             </div>
         </div>
@@ -28,28 +28,28 @@
             <div class="col-12">
                 <div class="card card-primary">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="card-title mr-4">Categorías publicadas</h3>
-                        <a href="<?= route_to('admin.categories.create') ?>" class="btn btn-success">Registrar categoría</a>
+                        <h3 class="card-title mr-4">Community Managers publicados</h3>
+                        <a href="<?= route_to('admin.community.create') ?>" class="btn btn-success">Registrar Community Manager</a>
                     </div>
                     <div class="card-body">
-                        <table id="categories-table" class="table table-bordered table-striped">
+                        <table id="communities-table" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Nombre</th>
-                                <th>Color de etiqueta</th>
+                                <th>Email</th>
                                 <th>Fecha de registro</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($categories as $category): ?>
-                                <tr id="category-<?= $category->id ?>">
-                                    <td><?= $category->name ?></td>
-                                    <td><span class="p-1" style="background: <?= $category->background ?>; color: <?= $category->color ?>"><?= $category->name ?></span></td>
-                                    <td><?= $category->created_at ?></td>
+                            <?php foreach ($communities as $community): ?>
+                                <tr id="tag-<?= $community->id ?>">
+                                    <td><?= $community->first_name . ' ' . $community->last_name ?></td>
+                                    <td><?= $community->email ?></td>
+                                    <td><?= $community->created_at ?></td>
                                     <td>
-                                        <a href="<?= route_to('admin.categories.edit', $category->id) ?>" class="btn btn-sm btn-warning">Editar</a>
-                                        <a href="<?= route_to('admin.categories.destroy', $category->id) ?>" class="btn btn-sm btn-danger btnDeleteCategory" data-id="<?= $category->id ?>">Eliminar</a>
+                                        <a href="<?= route_to('admin.tags.edit', $community->id) ?>" class="btn btn-sm btn-warning">Editar</a>
+                                        <a href="<?= route_to('admin.tags.destroy', $community->id) ?>" class="btn btn-sm btn-danger btnDeleteCommunity" data-id="<?= $community->id ?>">Eliminar</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -77,10 +77,10 @@
 <script src="<?= base_url('public/libs/adminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.js') ?>"></script>
 <!-- SweetAlert2 -->
 <script src="<?= base_url('public/libs/adminLTE/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
-<script src="<?= base_url('public/js/admin/categories/delete.js') ?>"></script>
+<script src="<?= base_url('public/js/admin/communities/delete.js') ?>"></script>
 <script>
     $(function () {
-        $('#categories-table').DataTable();
+        $('#communities-table').DataTable();
     });
 </script>
 
