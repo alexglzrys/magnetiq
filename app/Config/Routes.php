@@ -50,6 +50,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->post('tags/destroy/(:num)', 'TagController::destroy/$1', ['as' => 'admin.tags.destroy']);
     // Community
     $routes->get('community-managers', 'CommunityController::index', ['as' => 'admin.community.index']);
+    $routes->get('community-managers/create', 'CommunityController::create', ['as' => 'admin.community.create']);
+    $routes->post('community-managers/store', 'CommunityController::store', ['as' => 'admin.community.store']);
 });
 
 /*
