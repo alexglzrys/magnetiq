@@ -61,6 +61,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->post('clients/store', 'ClientController::store', ['as' => 'admin.clients.store']);
     $routes->get('clients/edit/(:num)', 'ClientController::edit/$1', ['as' => 'admin.clients.edit']);
     $routes->post('clients/update/(:num)', 'ClientController::update/$1', ['as' => 'admin.clients.update']);
+    $routes->post('clients/destroy/(:num)', 'ClientController::destroy/$1', ['as' => 'admin.clients.destroy']);
 });
 
 /*

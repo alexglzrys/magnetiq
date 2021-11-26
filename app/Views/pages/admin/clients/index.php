@@ -43,7 +43,7 @@
                             </thead>
                             <tbody>
                             <?php foreach ($clients as $client): ?>
-                                <tr id="community-manager-<?= $client->id ?>">
+                                <tr id="client-<?= $client->id ?>">
                                     <td><?= $client->name ?></td>
                                     <td><?= $client->email ?></td>
                                     <td><?= $client->created_at ?></td>

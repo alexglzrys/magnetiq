@@ -217,6 +217,30 @@ class ClientController extends BaseController
         }
     }
 
+    public function destroy($id)
+    {
+        $response = [];
+        try {
+            $clientModel = new ClientModel();
+            $clientDeleted = $clientModel->delete($id);
+            if ($clientDeleted) {
+                $response["status"]     = "success";
+                $response["code"]       = 200;
+                $response["message"]    = "El Cliente se eliminó satisfactoriamente en el sistema.";
+            } else {
+                $response["status"]     = "error";
+                $response["code"]       = 500;
+                $response["message"]    = "No fue posible eliminar el Cliente en el sistema, favor de intentar mas tarde.";
+            }
+            return $this->response->setJSON($response);
+        } catch (\Exception $e) {
+            $response["status"]  = "error";
+            $response["code"]    = 500;
+            $response["message"] = $e->getMessage();
+            return $this->response->setJSON($response);
+        }
+    }
+
     private function uploadImage($image) {
         if ($image->isValid() && !$image->hasMoved()) {
             $fileName = $image->getRandomName();
