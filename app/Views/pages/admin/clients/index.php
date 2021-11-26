@@ -29,7 +29,7 @@
                 <div class="card card-primary">
                     <div class="card-header d-flex align-items-center">
                         <h3 class="card-title mr-4">Clientes publicados</h3>
-                        <a href="<?= route_to('admin.community.create') ?>" class="btn btn-success">Registrar Community Manager</a>
+                        <a href="<?= route_to('admin.clients.create') ?>" class="btn btn-success">Registrar Community Manager</a>
                     </div>
                     <div class="card-body">
                         <table id="clients-table" class="table table-bordered table-striped">

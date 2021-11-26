@@ -263,7 +263,7 @@ class CommunityController extends BaseController
     private function uploadImage($image) {
         if ($image->isValid() && !$image->hasMoved()) {
             $fileName = $image->getRandomName();
-            $imageMoved = $image->move(ROOTPATH.'public/images/avatars/', $fileName);
+            $imageMoved = $image->move(ROOTPATH.'public/images/avatars/users/', $fileName);
             if ($imageMoved) {
                 return 'public/images/avatars/'.$fileName;
             } else {
