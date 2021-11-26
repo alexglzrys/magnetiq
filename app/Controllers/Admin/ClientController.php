@@ -5,6 +5,7 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use App\Models\CategoryModel;
 use App\Models\ClientModel;
+use App\Models\SocialNetworkModel;
 
 class ClientController extends BaseController
 {
@@ -18,8 +19,10 @@ class ClientController extends BaseController
     public function create()
     {
         $categoryModel = new CategoryModel();
+        $socialNetworkModel = new SocialNetworkModel();
         $categories = $categoryModel->findAll();
-        return view('pages/admin/clients/create', compact('categories'));
+        $social_networks = $socialNetworkModel->findAll();
+        return view('pages/admin/clients/create', compact('categories', 'social_networks'));
     }
 
     public function store()
@@ -74,6 +77,14 @@ class ClientController extends BaseController
                         'numeric' => 'Las {field} deben ser un valor numérico',
                     ]
                 ],
+                'networks.*' => [
+                    'label' => 'redes sociales asociadas',
+                    'rules' => 'required|numeric',
+                    'errors' => [
+                        'required' => 'Las {field} son un dato requerido',
+                        'numeric' => 'Las {field} deben ser un valor numérico',
+                    ]
+                ],
             ];
 
             $input = $this->validate($rules);
@@ -90,10 +101,11 @@ class ClientController extends BaseController
             $email = trim($this->request->getPost('email'));
             $password = trim($this->request->getPost('password'));
             $categories = $this->request->getPost('categories');
+            $social_networks = $this->request->getPost('networks');
             $avatar = $this->request->getFile('avatar');
 
             $clientModel = new ClientModel();
-            $clientCreated = $clientModel->createClient($name, $email, $password, $avatar, $categories);
+            $clientCreated = $clientModel->createClient($name, $email, $password, $avatar, $categories, $social_networks);
 
             if ($clientCreated) {
                 $response["status"]     = "success";
@@ -118,10 +130,13 @@ class ClientController extends BaseController
     {
         $clientModel = new ClientModel();
         $categoryModel = new CategoryModel();
+        $socialNetworkModel = new SocialNetworkModel();
         $client = $clientModel->find($id);
         $currentCategories = $clientModel->getCategoriesClient($id);
+        $currentSocialNetworks = $clientModel->getSocialNetworksClient($id);
         $categories = $categoryModel->findAll();
-        return view('pages/admin/clients/edit', compact('client', 'currentCategories', 'categories'));
+        $social_networks = $socialNetworkModel->findAll();
+        return view('pages/admin/clients/edit', compact('client', 'currentCategories', 'currentSocialNetworks', 'categories', 'social_networks'));
     }
 
     public function update($id)
@@ -174,6 +189,14 @@ class ClientController extends BaseController
                         'numeric' => 'Las {field} deben ser un valor numérico',
                     ]
                 ],
+                'networks.*' => [
+                    'label' => 'redes sociales asociadas',
+                    'rules' => 'required|numeric',
+                    'errors' => [
+                        'required' => 'Las {field} son un dato requerido',
+                        'numeric' => 'Las {field} deben ser un valor numérico',
+                    ]
+                ],
             ];
 
             $input = $this->validate($rules);
@@ -190,10 +213,11 @@ class ClientController extends BaseController
             $email = trim($this->request->getPost('email'));
             $password = trim($this->request->getPost('password'));
             $categories = $this->request->getPost('categories');
+            $social_networks = $this->request->getPost('networks');
             $avatar = $this->request->getFile('avatar');
 
             $clientModel = new ClientModel();
-            $clientUpdated = $clientModel->editClient($id, $name, $email, $password, $avatar, $categories);
+            $clientUpdated = $clientModel->editClient($id, $name, $email, $password, $avatar, $categories, $social_networks);
 
             if ($clientUpdated) {
                 $response["status"]     = "success";

@@ -28,6 +28,8 @@ function editCategory(event) {
                     let formControl = null
                     if (property === 'categories.*') {
                         formControl = document.querySelector('*[name="categories[]"]')
+                    } else if (property === 'networks.*') {
+                        formControl = document.querySelector('*[name="networks[]"]')
                     } else {
                         formControl = document.querySelector(`*[name='${property}']`)
                     }

@@ -55,6 +55,15 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="networks">Redes sociales asociadas con el cliente</label>
+                                <select name="networks[]" id="networks" class="custom-select" multiple>
+                                    <option value="" selected disabled>Seleccione una o varias redes sociales</option>
+                                    <?php foreach ($social_networks as $networks): ?>
+                                        <option value="<?= $networks->id ?>"><?= $networks->name ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="avatar">Avatar</label>
                                 <input type="file" name="avatar" id="avatar" class="form-control">
                             </div>

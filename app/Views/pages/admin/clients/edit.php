@@ -66,6 +66,26 @@
                                 <?php endif; ?>
                             </div>
                             <div class="form-group">
+                                <label for="networks">Redes sociales asociadas con el cliente</label>
+                                <?php if (count($social_networks)): ?>
+                                    <select name="networks[]" id="networks" class="custom-select" multiple required>
+                                        <?php foreach($social_networks as $index => $social_network): ?>
+                                            <option value="<?= $social_network->id ?>"
+                                                <?= array_search($social_network->id, array_column($currentSocialNetworks, 'social_network_id')) !== false ? 'selected' : '' ?> >
+                                                <?= esc($social_network->name) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                <?php else: ?>
+                                    <select name="networks[]" id="networks" class="custom-select" multiple required>
+                                        <option value="" selected disabled>Seleccione una o varias redes sociales</option>
+                                        <?php foreach ($social_networks as $social_network): ?>
+                                            <option value="<?= $social_network->id ?>"><?= $social_network->name ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                <?php endif; ?>
+                            </div>
+                            <div class="form-group">
                                 <label for="avatar">Avatar</label>
                                 <input type="file" name="avatar" id="avatar" class="form-control">
                             </div>

@@ -40,7 +40,7 @@ class ClientModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
-    public function createClient($name, $email, $password, $avatar, $categories) {
+    public function createClient($name, $email, $password, $avatar, $categories, $social_networks) {
         try {
             $avatarPath = $this->uploadImage($avatar);
             $dataClient = [
@@ -66,6 +66,15 @@ class ClientModel extends Model
                 ]);
             }
             $this->db->table('client_has_categories')->insertBatch($dataCategories);
+            // Operaciones tabla pivote client_has_social_networks
+            $dataSocialNetworks = [];
+            foreach ($social_networks as $social_network) {
+                array_push($dataSocialNetworks, [
+                    'client_id' => $clientID,
+                    'social_network_id' => $social_network
+                ]);
+            }
+            $this->db->table('client_has_social_networks')->insertBatch($dataSocialNetworks);
             // Confirmar operaciones en base de datos
             if ($this->db->transStatus() === FALSE) {
                 $this->db->transRollback();
@@ -81,7 +90,7 @@ class ClientModel extends Model
         }
     }
 
-    public function editClient($id, $name, $email, $password, $avatar, $categories) {
+    public function editClient($id, $name, $email, $password, $avatar, $categories, $social_networks) {
         try {
             $dataClient = [
                 'name' => $name,
@@ -112,6 +121,16 @@ class ClientModel extends Model
                 ]);
             }
             $this->db->table('client_has_categories')->insertBatch($dataCategories);
+            // Operaciones tabla pivote client_has_social_networks
+            $this->db->table('client_has_social_networks')->where('client_id', $id)->delete();
+            $dataSocialNetworks = [];
+            foreach ($social_networks as $social_network) {
+                array_push($dataSocialNetworks, [
+                    'client_id' => $id,
+                    'social_network_id' => $social_network
+                ]);
+            }
+            $this->db->table('client_has_social_networks')->insertBatch($dataSocialNetworks);
             // Confirmar operaciones en base de datos
             if ($this->db->transStatus() === FALSE) {
                 $this->db->transRollback();
@@ -132,6 +151,20 @@ class ClientModel extends Model
         try {
             $this->db = db_connect('default');
             $builder = $this->db->table('client_has_categories');
+            $query = $builder->where('client_id', $id)->get()->getResult();
+            return $query;
+        } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
+            throw new \Exception("Error de conexión temporal a la base de datos, favor de intentar más tarde.");
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
+    public function getSocialNetworksClient($id)
+    {
+        try {
+            $this->db = db_connect('default');
+            $builder = $this->db->table('client_has_social_networks');
             $query = $builder->where('client_id', $id)->get()->getResult();
             return $query;
         } catch (\CodeIgniter\Database\Exceptions\DatabaseException $e) {
