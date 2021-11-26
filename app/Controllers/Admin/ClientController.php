@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\CategoryModel;
 use App\Models\ClientModel;
 
 class ClientController extends BaseController
@@ -16,7 +17,9 @@ class ClientController extends BaseController
 
     public function create()
     {
-        return view('pages/admin/clients/create');
+        $categoryModel = new CategoryModel();
+        $categories = $categoryModel->findAll();
+        return view('pages/admin/clients/create', compact('categories'));
     }
 
     public function store()
@@ -62,7 +65,15 @@ class ClientController extends BaseController
                         'max_size' => 'El {field} excede el tamaño máximo permitido de 500kb.',
                         'max_dims' => 'El {field} no debe exceder los 400x400'
                     ]
-                ]
+                ],
+                'categories.*' => [
+                    'label' => 'categorías asociadas',
+                    'rules' => 'required|numeric',
+                    'errors' => [
+                        'required' => 'Las {field} son un dato requerido',
+                        'numeric' => 'Las {field} deben ser un valor numérico',
+                    ]
+                ],
             ];
 
             $input = $this->validate($rules);
@@ -75,24 +86,14 @@ class ClientController extends BaseController
                 return $this->response->setJSON($response);
             }
 
-            $clientModel = new ClientModel();
-
             $name = trim($this->request->getPost('name'));
             $email = trim($this->request->getPost('email'));
             $password = trim($this->request->getPost('password'));
+            $categories = $this->request->getPost('categories');
             $avatar = $this->request->getFile('avatar');
 
-            $uploadAvatarSuccess = $this->uploadImage($avatar);
-
-            $data = [
-                'name' => $name,
-                'slug' => mb_url_title($name, '-', TRUE),
-                'email' => $email,
-                'password' => password_hash($password, PASSWORD_BCRYPT),
-                'avatar' => $uploadAvatarSuccess,
-            ];
-
-            $clientCreated = $clientModel->save($data);
+            $clientModel = new ClientModel();
+            $clientCreated = $clientModel->createClient($name, $email, $password, $avatar, $categories);
 
             if ($clientCreated) {
                 $response["status"]     = "success";
@@ -116,8 +117,11 @@ class ClientController extends BaseController
     public function edit($id)
     {
         $clientModel = new ClientModel();
+        $categoryModel = new CategoryModel();
         $client = $clientModel->find($id);
-        return view('pages/admin/clients/edit', compact('client'));
+        $currentCategories = $clientModel->getCategoriesClient($id);
+        $categories = $categoryModel->findAll();
+        return view('pages/admin/clients/edit', compact('client', 'currentCategories', 'categories'));
     }
 
     public function update($id)
@@ -161,7 +165,15 @@ class ClientController extends BaseController
                         'max_size' => 'El {field} excede el tamaño máximo permitido de 500kb.',
                         'max_dims' => 'El {field} no debe exceder los 400x400'
                     ]
-                ]
+                ],
+                'categories.*' => [
+                    'label' => 'categorías asociadas',
+                    'rules' => 'required|numeric',
+                    'errors' => [
+                        'required' => 'Las {field} son un dato requerido',
+                        'numeric' => 'Las {field} deben ser un valor numérico',
+                    ]
+                ],
             ];
 
             $input = $this->validate($rules);
@@ -174,29 +186,14 @@ class ClientController extends BaseController
                 return $this->response->setJSON($response);
             }
 
-            $clientModel = new ClientModel();
-
             $name = trim($this->request->getPost('name'));
             $email = trim($this->request->getPost('email'));
             $password = trim($this->request->getPost('password'));
+            $categories = $this->request->getPost('categories');
             $avatar = $this->request->getFile('avatar');
 
-            $data = [
-                'name' => $name,
-                'slug' => mb_url_title($name, '-', TRUE),
-                'email' => $email,
-            ];
-
-            if ($avatar->getError() !== 4) {
-                $uploadAvatarSuccess = $this->uploadImage($avatar);
-                $data['avatar'] = $uploadAvatarSuccess;
-            }
-
-            if ($password) {
-                $data['password'] = password_hash($password, PASSWORD_BCRYPT);
-            }
-
-            $clientUpdated = $clientModel->update($id, $data);
+            $clientModel = new ClientModel();
+            $clientUpdated = $clientModel->editClient($id, $name, $email, $password, $avatar, $categories);
 
             if ($clientUpdated) {
                 $response["status"]     = "success";
@@ -241,17 +238,5 @@ class ClientController extends BaseController
         }
     }
 
-    private function uploadImage($image) {
-        if ($image->isValid() && !$image->hasMoved()) {
-            $fileName = $image->getRandomName();
-            $imageMoved = $image->move(ROOTPATH.'public/images/avatars/clients/', $fileName);
-            if ($imageMoved) {
-                return 'public/images/avatars/clients/'.$fileName;
-            } else {
-                throw new \Exception("Error al tratar de subir el recurso de imagen al servidor, favor de intentar más tarde.");
-            }
-        } else {
-            throw new \Exception("Recurso de imagen no válido.");
-        }
-    }
+
 }

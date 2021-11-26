@@ -46,6 +46,15 @@
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña para el acceso al sistema">
                             </div>
                             <div class="form-group">
+                                <label for="categories">Categorías asociadas con el cliente</label>
+                                <select name="categories[]" id="categories" class="custom-select" multiple>
+                                    <option value="" selected disabled>Seleccione una o varias categorías</option>
+                                    <?php foreach ($categories as $category): ?>
+                                        <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="avatar">Avatar</label>
                                 <input type="file" name="avatar" id="avatar" class="form-control">
                             </div>

@@ -26,8 +26,12 @@ function createCategory(event) {
                 Swal.fire("Error de validación", res.message, "error");
                 for (const property in res.validation) {
                     const HTML = `<span class="message-error"><i class="fa fa-exclamation-circle"></i> ${res.validation[property]}</span>`
-                    const formControl = document.querySelector(`*[name='${property}']`)
-
+                    let formControl = null
+                    if (property === 'categories.*') {
+                       formControl = document.querySelector('*[name="categories[]"]')
+                    } else {
+                        formControl = document.querySelector(`*[name='${property}']`)
+                    }
                     formControl.classList.add('is-invalid')
                     formControl.parentNode.insertAdjacentHTML('beforeend', HTML)
                 }

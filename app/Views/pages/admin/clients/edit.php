@@ -46,6 +46,26 @@
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña para el acceso al sistema">
                             </div>
                             <div class="form-group">
+                                <label for="categories">Categorías asociadas con el cliente</label>
+                                <?php if (count($categories)): ?>
+                                    <select name="categories[]" id="categories" class="custom-select" multiple required>
+                                        <?php foreach($categories as $index => $category): ?>
+                                            <option value="<?= $category->id ?>"
+                                                <?= array_search($category->id, array_column($currentCategories, 'category_id')) !== false ? 'selected' : '' ?> >
+                                                    <?= esc($category->name) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                <?php else: ?>
+                                    <select name="categories[]" id="categories" class="custom-select" multiple required>
+                                        <option value="" selected disabled>Seleccione una o varias categorías</option>
+                                        <?php foreach ($categories as $category): ?>
+                                            <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                <?php endif; ?>
+                            </div>
+                            <div class="form-group">
                                 <label for="avatar">Avatar</label>
                                 <input type="file" name="avatar" id="avatar" class="form-control">
                             </div>
